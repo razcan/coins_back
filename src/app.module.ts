@@ -6,7 +6,10 @@ import { CoinsModule } from './coins/coins.module';
 import config from '../ormconfig'
 
 @Module({
-  imports: [CoinsModule, TypeOrmModule.forRoot(config)],
+  imports: [CoinsModule, TypeOrmModule.forRoot(
+    config
+    
+    )],
   controllers: [AppController],
   providers: [AppService],
 })

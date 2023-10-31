@@ -22,11 +22,6 @@ export class CoinsController {
     return this.coinsService.findAll();
   }
 
-  // @Get()
-  // getHello(): string {
-  //   return this.coinsService.getHello();
-  // }
-
 
   @Get(':id')
   findOne(@Param('id') id: string) {

@@ -30,4 +30,10 @@ export class CreateCoinDto {
 
     Script: string; //Latin
 
+    Stock: number; //5
+
+    Price: number; //10
+
+    Worn: string; //very used
+
 }

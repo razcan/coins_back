@@ -6,8 +6,11 @@ const config: SqliteConnectionOptions = {
     type: "sqlite",
     database: 'db',
     entities: [ Coin, ],
+    // entities: [/*...*/],
+    migrations: [/*...*/],
     logging: true,
-    synchronize: true
+    synchronize: true,
+    migrationsTableName: 'custom_migration_table',
   }
 
 // import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions"; 

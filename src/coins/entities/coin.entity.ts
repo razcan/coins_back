@@ -39,6 +39,10 @@ export class Coin {
     References: string;	//KM# Pn B1, MBR# 185
     @Column()
     Script: string; //Latin
-
-
+    @Column()
+    Stock: number;
+    @Column()
+    Price: number;
+    @Column()
+    Worn: string;
 }
