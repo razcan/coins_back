@@ -33,7 +33,7 @@ export class CoinsService {
   ) {}
 
   create(createCoinDto: CreateCoinDto) {
-    return this.coinRepository.save(createCoinDto);
+   return this.coinRepository.save(createCoinDto);
   }
 
 

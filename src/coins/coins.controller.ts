@@ -24,14 +24,40 @@ export class CoinsController {
   constructor(private readonly coinsService: CoinsService) {}
 
 
-  @Post()
-  async create(@Body() createCoinDto: CreateCoinDto) {
-    const coin = await this.coinsService.create(createCoinDto);
-    if(!coin) {
-      return 'error in creating coin'
-    }
-    return 'coin created successfully!!!'
-  }
+  // @Post()
+  // async create(@Body() createCoinDto: CreateCoinDto) {
+  //   const coin = await this.coinsService.create(createCoinDto);
+  //   if(!coin) {
+  //     return 'error in creating coin'
+  //   }
+  //   return 'coin created successfully!!!'
+  // }
+
+  //multiple files upload
+// @Post('uploadm')
+// @UseInterceptors(FilesInterceptor('files'))
+// uploadFilem(@UploadedFiles() files: Array<Express.Multer.File>) {
+// // console.log(files);
+// return {
+//   message: 'Files uploaded successfully',
+//   fileCount: files.length,
+//   all_files: files, 
+// }
+// }
+
+@Post('uploadm')
+@UseInterceptors(FilesInterceptor('files'))
+uploadFiles(@UploadedFiles() files, @Body() createCoinDto: CreateCoinDto) {
+  createCoinDto.Path = files[0].path;
+  this.coinsService.create(createCoinDto);
+  return {
+    message: 'Files and data uploaded successfully',
+    fileCount: files.length,
+    filesInfo: files,
+    data: createCoinDto, // This contains the DTO data
+  };
+}
+
 
   @Get()
   findAll() {
@@ -56,6 +82,8 @@ uploadFile(@UploadedFile() file: Express.Multer.File) {
 console.log(file);
   // fs.promises.writeFile(`./upload/${file.originalname}`, file.buffer);
 }
+
+
 
 // @UseInterceptors(FileInterceptor('file'))
 // @Post('upload')
@@ -89,12 +117,7 @@ console.log(file);
     };
   }
 
-//multiple files upload
-// @Post('upload')
-// @UseInterceptors(FilesInterceptor('files'))
-// uploadFile(@UploadedFiles() files: Array<Express.Multer.File>) {
-// console.log(files);
-// }
+
 
 
 @Post('file4')

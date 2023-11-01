@@ -45,4 +45,6 @@ export class Coin {
     Price: number;
     @Column()
     Worn: string;
+    @Column()
+    Path?: string;
 }
