@@ -3,10 +3,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoinsModule } from './coins/coins.module';
+import { MulterModule } from '@nestjs/platform-express';
 import config from '../ormconfig'
+import { multerConfig } from './multer.config';
 
 @Module({
-  imports: [CoinsModule, TypeOrmModule.forRoot(
+  imports: [
+    // MulterModule.registerAsync({
+    //   useFactory: () => ({
+    //     dest: './upload',
+    //   }),
+    // }),  
+    MulterModule.register(multerConfig),
+    CoinsModule, TypeOrmModule.forRoot(
     config
     
     )],
