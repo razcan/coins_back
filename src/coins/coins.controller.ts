@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UploadedFiles } from '@nestjs/common';
 import { CoinsService } from './coins.service';
 import { CreateCoinDto } from './dto/create-coin.dto';
+import { CreateFileInfoDTO } from './dto/create-fileinfo.dto'
 import { UpdateCoinDto } from './dto/update-coin.dto';
 import { FileDto } from './dto/file-coin.dto';
 
@@ -15,13 +16,20 @@ import {
   ParseFilePipeBuilder,
   UseInterceptors,
 } from '@nestjs/common';
-import * as fs from 'fs';
+import { FileInfo } from './entities/fileinfo.entitty';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 
 
 @Controller('coins')
 export class CoinsController {
-  constructor(private readonly coinsService: CoinsService) {}
+  constructor
+  (
+    private readonly coinsService: CoinsService,
+    @InjectRepository(FileInfo)
+    private readonly userRepository: Repository<FileInfo>,
+    ) {}
 
 
   // @Post()
@@ -47,9 +55,11 @@ export class CoinsController {
 
 @Post('uploadm')
 @UseInterceptors(FilesInterceptor('files'))
-uploadFiles(@UploadedFiles() files, @Body() createCoinDto: CreateCoinDto) {
-  createCoinDto.Path = files[0].path;
-  this.coinsService.create(createCoinDto);
+uploadFiles(@UploadedFiles() files, @Body() createCoinDto: CreateCoinDto, createFileDto: CreateFileInfoDTO) {
+  createFileDto=files;
+  // createCoinDto.Path = files[0].path;
+  // createCoinDto.fileinfosId=5;
+  this.coinsService.create(createCoinDto,createFileDto);
   return {
     message: 'Files and data uploaded successfully',
     fileCount: files.length,

@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import { Coin } from '../coins/entities/coin.entity';
 import { CreateCoinDto } from './dto/create-coin.dto';
 import { UpdateCoinDto } from './dto/update-coin.dto';
+import { CreateFileInfoDTO } from './dto/create-fileinfo.dto'
+import { FileInfo } from '../coins/entities/fileinfo.entitty'
 
 
 
@@ -30,10 +32,15 @@ export class CoinsService {
   constructor(
     @InjectRepository(Coin)
     private readonly coinRepository: Repository<Coin>,
+    @InjectRepository(FileInfo)
+    private readonly fileRepository: Repository<FileInfo>,
   ) {}
 
-  create(createCoinDto: CreateCoinDto) {
-   return this.coinRepository.save(createCoinDto);
+  async create(createCoinDto: CreateCoinDto, createFileInfoDto: CreateFileInfoDTO) {   
+    //console.log(createCoinDto);
+    const  rezult = await this.fileRepository.save(createFileInfoDto) 
+    createCoinDto.fileinfosId=rezult[0].id;
+    return this.coinRepository.save(createCoinDto);
   }
 
 

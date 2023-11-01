@@ -1,12 +1,13 @@
 import { SqliteConnectionOptions } from "typeorm/driver/sqlite/SqliteConnectionOptions";
 
 import { Coin } from './src/coins/entities/coin.entity'
+import { FileInfo } from "src/coins/entities/fileinfo.entitty";
 
 const config: SqliteConnectionOptions = {
     type: "sqlite",
     database: 'db',
-    entities: [ Coin, ],
-    // entities: [/*...*/],
+    entities: [ Coin, FileInfo],
+    //entities: [__dirname + '/../**/*.entity.js'],
     migrations: [/*...*/],
     logging: true,
     synchronize: true,
