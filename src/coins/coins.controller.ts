@@ -57,8 +57,6 @@ export class CoinsController {
 @UseInterceptors(FilesInterceptor('files'))
 uploadFiles(@UploadedFiles() files, @Body() createCoinDto: CreateCoinDto,@Body() createFileDto: CreateFileInfoDTO[]) {
   createFileDto=files;
-  // createCoinDto.Path = files[0].path;
-  // createCoinDto.fileinfosId=5;
   this.coinsService.create(createCoinDto,createFileDto);
   return {
     message: 'Files and data uploaded successfully',
@@ -68,23 +66,28 @@ uploadFiles(@UploadedFiles() files, @Body() createCoinDto: CreateCoinDto,@Body()
   };
 }
 
-
   @Get()
   findAll() {
     return this.coinsService.findAll();
   }
 
-  @Get('file')
-  getFile(@Res({ passthrough: true }) res: Response): StreamableFile {
-    const file = createReadStream(join(process.cwd(), 'Image1.jpeg'
-    //'package.json'
-    ));
-    // res.set({
-    //   'Content-Type': 'application/json',
-    //   'Content-Disposition': 'attachment; filename="package.json"',
-    // });
-    return new StreamableFile(file);
+  @Get('download/:filename')
+  downloadFile(@Param('filename') filename: string, @Res() res: Response) {
+    const fileStream = createReadStream(`./upload/${filename}`);
+    fileStream.pipe(res);
   }
+
+  // @Get('file')
+  // getFile(@Res({ passthrough: true }) res: Response): StreamableFile {
+  //   const file = createReadStream(join(process.cwd(), 'package.json'
+  //   ));
+  //   // res.set({
+  //   //   'Content-Type': 'application/json',
+  //   //   'Content-Disposition': 'attachment; filename="package.json"',
+  //   // });
+  //   return new StreamableFile(file);
+  // }
+
 
 @Post('upload')
 @UseInterceptors(FileInterceptor('file'))

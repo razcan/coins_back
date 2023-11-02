@@ -1,32 +1,16 @@
-import { Injectable, Param } from '@nestjs/common';
+import { Injectable, Param, Response } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Any, Repository } from 'typeorm';
 import { Coin } from '../coins/entities/coin.entity';
 import { CreateCoinDto } from './dto/create-coin.dto';
 import { UpdateCoinDto } from './dto/update-coin.dto';
 import { CreateFileInfoDTO } from './dto/create-fileinfo.dto'
 import { FileInfo } from '../coins/entities/fileinfo.entitty'
 import * as fs from 'fs';
+import { StreamableFile, Res } from '@nestjs/common';
+import { createReadStream } from 'fs';
+import { join } from 'path';
 
-
-
-// export interface CoinInterface {
-//   Issuer: string;	//Romania 
-//   Prince: string;	//Alexandru Ioan Cuza (1859-1862)
-//   Type: string;	//Pattern
-//   Year: number	//1864
-//   Value: string;	//5 Sutimi = 1⁄20 Romanat (0.05)
-//   Currency: string;	//Român
-//   Composition: string;	//Bronze
-//   Weight: number;	//7.28 g
-//   Diameter: number;	//22.5 mm
-//   Shape: string;	//Round
-//   Technique: string;	//Milled
-//   Demonetized: boolean	//Yes
-//   Number: number;	//N# 197210 Help
-//   References: string;	//KM# Pn B1, MBR# 185
-//   Script: string; //Latin
-// }
 
 @Injectable()
 export class CoinsService {
@@ -47,11 +31,18 @@ export class CoinsService {
    });
   }
 
+
+  async downloadFile(@Param('fileName') fileName: string,  @Res({ passthrough: true }) res: Response): Promise<StreamableFile> {
+    const file = createReadStream(join(process.cwd(), fileName //'package.json'
+    ));
+    return new StreamableFile(file);
+  }
+
   async create(createCoinDto: CreateCoinDto, createFileInfoDto: CreateFileInfoDTO[]) {   
 
     const file_related = createFileInfoDto;
     const coin_rezult  =  await this.coinRepository.save(createCoinDto)
-
+//to
     for (let i=0 ; i<file_related.length; i++)
     {
       file_related[i].coinId=coin_rezult.id;
@@ -62,7 +53,7 @@ export class CoinsService {
 
   }
 
-  findAll() {
+  async findAll() {
     return this.coinRepository.find(
       {
         relations: {
@@ -72,8 +63,28 @@ export class CoinsService {
     );
   }
 
-  findOne(id: number) {
-    return this.coinRepository.findAndCountBy({id});
+  async findOne(id: number) {
+    const web_link = await this.coinRepository.find(
+      {
+        relations: {
+          fileinfos: true,
+        },
+    }
+    );
+    console.log('gigiiiiiiiiiiiiiiiii',web_link[0].fileinfos[0].filename);
+    const fileStream = createReadStream(`./upload/${web_link[0].fileinfos[0].filename}`);
+    const link = `http://localhost:3000/coins/download/${web_link[0].fileinfos[0].filename}`
+    return link;
+
+    // return this.coinRepository.find(
+    //   { where: {
+    //     id: id},
+    //     relations: {
+    //       fileinfos: true,
+    //     }
+    //   }
+      
+    //   );
   }
 
   update(id: number, updateCoinDto: UpdateCoinDto) {
