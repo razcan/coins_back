@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,OneToMany,JoinTable,OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,OneToMany,JoinTable,OneToOne, InsertResult,JoinColumn } from 'typeorm';
 import { FileInfo } from './fileinfo.entitty';
 
 //Here we have the table structure - how the data it will be saved in DB. Comparing with DTO where we have only the entered values by user.
@@ -46,15 +46,10 @@ export class Coin {
     Price: number;
     @Column()
     Worn: string;
-    @Column({nullable: true})
-    Path: string;
-
-    @Column({nullable: true})
-    fileinfosId: number;
     
-    @OneToOne(type => FileInfo, fileinfos => fileinfos.coin,  {
-        cascade: true,
-    })
+    @OneToMany(() => FileInfo, (fileinfos) => fileinfos.coin,  {
+        cascade: ["insert", "update"],
+    },)
     @JoinTable()
     fileinfos: FileInfo;
 }

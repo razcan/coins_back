@@ -36,11 +36,19 @@ export class CoinsService {
     private readonly fileRepository: Repository<FileInfo>,
   ) {}
 
-  async create(createCoinDto: CreateCoinDto, createFileInfoDto: CreateFileInfoDTO) {   
-    //console.log(createCoinDto);
-    const  rezult = await this.fileRepository.save(createFileInfoDto) 
-    createCoinDto.fileinfosId=rezult[0].id;
-    return this.coinRepository.save(createCoinDto);
+  async create(createCoinDto: CreateCoinDto, createFileInfoDto: CreateFileInfoDTO[]) {   
+
+    const file_related = createFileInfoDto;
+    const coin_rezult  =  await this.coinRepository.save(createCoinDto)
+
+    for (let i=0 ; i<file_related.length; i++)
+    {
+      file_related[i].coinId=coin_rezult.id;
+    }
+   
+    await this.coinRepository.save(createCoinDto)
+    await this.fileRepository.save(file_related) ;
+
   }
 
 

@@ -11,5 +11,6 @@ export class CreateFileInfoDTO{
     filename: string; //"files-1698858353186-975370700.jpeg",
     path: string; //"upload/files-1698858353186-975370700.jpeg",
     size: number;//5800
+    coinId: number;
 
 }

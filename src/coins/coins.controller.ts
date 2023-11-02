@@ -55,7 +55,7 @@ export class CoinsController {
 
 @Post('uploadm')
 @UseInterceptors(FilesInterceptor('files'))
-uploadFiles(@UploadedFiles() files, @Body() createCoinDto: CreateCoinDto, createFileDto: CreateFileInfoDTO) {
+uploadFiles(@UploadedFiles() files, @Body() createCoinDto: CreateCoinDto,@Body() createFileDto: CreateFileInfoDTO[]) {
   createFileDto=files;
   // createCoinDto.Path = files[0].path;
   // createCoinDto.fileinfosId=5;

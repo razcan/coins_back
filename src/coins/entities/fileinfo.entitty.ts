@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne,OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne,OneToOne,JoinColumn } from 'typeorm';
 import { Coin } from './coin.entity';
 
 
@@ -25,8 +25,13 @@ export class FileInfo{
     path: string; //"upload/files-1698858353186-975370700.jpeg",
     @Column({nullable: true})
     size: number;//5800
+    @Column({nullable: true})
+    coinId: number;//5800
 
-    @OneToOne(() => Coin, (coin) => coin.fileinfos)
+
+    @ManyToOne(() => Coin, (coin) => coin.fileinfos,{
+        cascade: ["insert"],
+    })
+    // @JoinColumn({ referencedColumnName: "id" })
     coin: Coin
-
 }

@@ -36,8 +36,4 @@ export class CreateCoinDto {
 
     Worn: string; //very used
 
-    Path: string;
-
-    fileinfosId: number;
-
 }
