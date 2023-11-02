@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Coin } from '../coins/entities/coin.entity';
@@ -6,6 +6,7 @@ import { CreateCoinDto } from './dto/create-coin.dto';
 import { UpdateCoinDto } from './dto/update-coin.dto';
 import { CreateFileInfoDTO } from './dto/create-fileinfo.dto'
 import { FileInfo } from '../coins/entities/fileinfo.entitty'
+import * as fs from 'fs';
 
 
 
@@ -36,6 +37,16 @@ export class CoinsService {
     private readonly fileRepository: Repository<FileInfo>,
   ) {}
 
+
+  async deletePicture(@Param('fileName') fileName: string) {
+   await fs.unlink(`./upload/${fileName}`, (err) => {
+    if (err) {
+     console.error(err);
+     return err;    
+    }
+   });
+  }
+
   async create(createCoinDto: CreateCoinDto, createFileInfoDto: CreateFileInfoDTO[]) {   
 
     const file_related = createFileInfoDto;
@@ -51,7 +62,6 @@ export class CoinsService {
 
   }
 
-
   findAll() {
     return this.coinRepository.find();
   }
@@ -64,8 +74,20 @@ export class CoinsService {
     return this.coinRepository.update(id, updateCoinDto);
   }
 
-  remove(id: number) {
-    return this.coinRepository.delete({id});
+  async remove(id: number) {
+
+  const toremove = await this.fileRepository.find({
+      where: {
+          coinId: id
+      },
+  })
+
+  for (let i=0 ; i<toremove.length; i++)
+  {
+    this.deletePicture(toremove[i].filename);
+  }
+     this.fileRepository.delete({coinId: id});
+     this.coinRepository.delete({id});
   }
 
 }

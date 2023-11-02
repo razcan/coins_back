@@ -29,9 +29,7 @@ export class FileInfo{
     coinId: number;//5800
 
 
-    @ManyToOne(() => Coin, (coin) => coin.fileinfos,{
-        cascade: ["insert"],
-    })
+    @ManyToOne(() => Coin, (coin) => coin.fileinfos)
     // @JoinColumn({ referencedColumnName: "id" })
-    coin: Coin
+    coin: Coin;
 }

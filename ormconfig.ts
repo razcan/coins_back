@@ -7,6 +7,9 @@ const config: SqliteConnectionOptions = {
     type: "sqlite",
     database: 'db',
     entities: [ Coin, FileInfo],
+  //   entities: [
+  //     __dirname + '/../**/*.entity{.ts,.js}',
+  // ],
     //entities: [__dirname + '/../**/*.entity.js'],
     migrations: [/*...*/],
     logging: true,
