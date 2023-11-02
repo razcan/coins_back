@@ -63,7 +63,13 @@ export class CoinsService {
   }
 
   findAll() {
-    return this.coinRepository.find();
+    return this.coinRepository.find(
+      {
+        relations: {
+          fileinfos: true,
+        },
+    }
+    );
   }
 
   findOne(id: number) {
