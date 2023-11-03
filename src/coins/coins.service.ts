@@ -65,16 +65,32 @@ export class CoinsService {
 
   async findOne(id: number) {
     const web_link = await this.coinRepository.find(
-      {
+      {where: {
+            id: id},
         relations: {
           fileinfos: true,
         },
     }
     );
-    console.log('gigiiiiiiiiiiiiiiiii',web_link[0].fileinfos[0].filename);
-    const fileStream = createReadStream(`./upload/${web_link[0].fileinfos[0].filename}`);
-    const link = `http://localhost:3000/coins/download/${web_link[0].fileinfos[0].filename}`
-    return link;
+    //myArray = myArray.concat(myObject); // Add the object to the array
+    const newArray = web_link.map(item => item.fileinfos);
+    
+    // const response_length= web_link.length;
+    // const response_length_fileinfos= web_link[0].fileinfos.length;
+    // for (let i=0;i<response_length;i++){
+    //   for (let j=0; j<response_length_fileinfos; j++)
+    //   console.log(web_link[i].fileinfos[j].path);
+
+    //  }
+    const newArray2 = newArray[0].map(item => 'http://localhost:3000/coins/download/'+item.filename);
+    const myArray = [...web_link, newArray2]; 
+     return myArray;
+    
+
+    // console.log('gigiiiiiiiiiiiiiiiii',web_link[0].fileinfos[0].filename);
+    // const fileStream = createReadStream(`./upload/${web_link[0].fileinfos[0].filename}`);
+    // const link = `http://localhost:3000/coins/download/${web_link[0].fileinfos[0].filename}`
+    //return link;
 
     // return this.coinRepository.find(
     //   { where: {

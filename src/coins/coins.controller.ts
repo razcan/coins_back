@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UploadedFiles } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param,Header, Delete, UploadedFile, UploadedFiles } from '@nestjs/common';
 import { CoinsService } from './coins.service';
 import { CreateCoinDto } from './dto/create-coin.dto';
 import { CreateFileInfoDTO } from './dto/create-fileinfo.dto'
@@ -19,6 +19,7 @@ import {
 import { FileInfo } from './entities/fileinfo.entitty';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 
 
 
@@ -76,6 +77,14 @@ uploadFiles(@UploadedFiles() files, @Body() createCoinDto: CreateCoinDto,@Body()
     const fileStream = createReadStream(`./upload/${filename}`);
     fileStream.pipe(res);
   }
+
+  // @Get('ff')
+  // @Header('Content-Type', 'application/json')
+  // @Header('Content-Disposition', 'attachment; filename="package.json"')
+  // getStaticFile(): StreamableFile {
+  //   const file = createReadStream(join(process.cwd(), 'package.json'));
+  //   return new StreamableFile(file);
+  // }  
 
   // @Get('file')
   // getFile(@Res({ passthrough: true }) res: Response): StreamableFile {
