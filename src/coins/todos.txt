@@ -1,0 +1,4 @@
+1. de adaugat un controller/serviciu nou pentru comenzi si detalii de comenzi - toate api-urile
+2. trimitere email
+3. de implementat a doua limba
+4. de realizat pagina de administrare monede + vizualizare comenzi

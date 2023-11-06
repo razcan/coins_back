@@ -2,11 +2,13 @@ import { SqliteConnectionOptions } from "typeorm/driver/sqlite/SqliteConnectionO
 
 import { Coin } from './src/coins/entities/coin.entity'
 import { FileInfo } from "src/coins/entities/fileinfo.entitty";
+import { Order } from './src/orders/entities/order.entity'
+import { OrderDetails } from './src/orders/entities/orderdetail.entity'
 
 const config: SqliteConnectionOptions = {
     type: "sqlite",
-    database: 'db',
-    entities: [ Coin, FileInfo],
+    database: 'db.db',
+    entities: [ Coin, FileInfo, Order ,OrderDetails, ],
   //   entities: [
   //     __dirname + '/../**/*.entity{.ts,.js}',
   // ],
@@ -16,30 +18,5 @@ const config: SqliteConnectionOptions = {
     synchronize: true,
     migrationsTableName: 'custom_migration_table',
   }
-
-// import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions"; 
-// export const devConfig: PostgresConnectionOptions = {
-//   type: 'postgres',
-//   host: 'localhost',
-//   port: 5432,
-//   username: 'postgres',
-//   password: '1234',
-//   database: 'AWT',
-//   entities: ["dist/**/*.entity{.ts,.js}"],
-//   synchronize: true,
-// }
-
-//mysql
-// TypeOrmModule.forRoot({
-//   type: 'mysql',
-//   host: 'localhost',
-//   port: 3306,
-//   username: 'razvan',
-//   password: 'vasilica#25',
-//   database: 'api_local',
-//   entities: [],
-//   synchronize: true,
-//   autoLoadEntities: true,
-// }),
 
 export default config;

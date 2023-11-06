@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,OneToMany,JoinTable,OneToOne, InsertResult,JoinColumn,TreeChildren,TreeParent } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,OneToMany,JoinTable,OneToOne, InsertResult,JoinColumn,TreeChildren,TreeParent, ManyToMany } from 'typeorm';
 import { FileInfo } from './fileinfo.entitty';
+import { OrderDetails } from 'src/orders/entities/orderdetail.entity';
 
 //Here we have the table structure - how the data it will be saved in DB. Comparing with DTO where we have only the entered values by user.
 
@@ -54,4 +55,11 @@ export class Coin {
     fileinfos: FileInfo[];
     // @JoinTable()
     // fileinfos: FileInfo;
+
+    
+    // @ManyToMany(() => OrderDetails, (orderdetails) => orderdetails.order)
+    // @JoinColumn()
+    // orderdetails: OrderDetails;
+
+
 }
