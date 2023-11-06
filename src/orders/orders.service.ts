@@ -7,6 +7,24 @@ import { OrderDetails } from './entities/orderdetail.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
+interface NewOrder {
+   OrderDate: Date;
+   Customer: string;	
+   TotalAmount: number;
+   OrderStatus: string;
+   ShippingAddress: string;	
+   PaymentMethod: string;
+   ShippingMethod: string;
+}
+
+interface NewOrderDetail {
+  CoinId: number; 
+  Quantity: number;
+  UnitPrice: number;
+  Discount: number;
+  Total: number;
+}
+
 @Injectable()
 export class OrdersService {
   constructor(
@@ -16,10 +34,30 @@ export class OrdersService {
     private readonly createorderdetailsRepository: Repository<OrderDetails>,
   ) {}
 
-  async create(createOrderDto: CreateOrderDto) {
-    console.log(createOrderDto);
-    await this.createOrderRepository.save(createOrderDto)
-    // return 'This action adds a new order';
+  async create(createOrderDto: any) {
+    
+    // var newOrder : NewOrder = {
+    //   Customer: createOrderDto.Customer,
+    //   OrderDate: createOrderDto.OrderDate,
+    //   TotalAmount: createOrderDto.TotalAmount,
+    //   OrderStatus: createOrderDto.OrderStatus,
+    //   ShippingAddress: createOrderDto.ShippingAddress,
+    //   PaymentMethod: createOrderDto.PaymentMethod,
+    //   ShippingMethod: createOrderDto.ShippingMethod
+    // }  
+    // var newOrderDetail : NewOrderDetail ={
+    //   CoinId: createOrderDto.DetailsOrder[0].CoinId,
+    //   Quantity: createOrderDto[0].DetailsOrder.Quantity,
+    //   UnitPrice: createOrderDto[0].DetailsOrder.UnitPrice,
+    //   Discount: createOrderDto[0].DetailsOrder.Discount,
+    //   Total: createOrderDto[0].DetailsOrder.Total
+    // }
+    console.log('Din servicu dto: ',createOrderDto.DetailsOrder);
+    // console.log('Din servicu: ',newOrder);
+   // console.log('Din servicu detaliu: ',newOrderDetail);
+    // await this.createOrderRepository.save(createOrderDto);
+    // await this.createorderdetailsRepository.save(createDetailsOrderDto);
+   return 'This action adds a new order';
   }
 
   findAll() {

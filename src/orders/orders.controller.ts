@@ -16,11 +16,12 @@ export class OrdersController {
 
   @Post()
   create(@Body() createOrderDto: CreateOrderDto) {
+    console.log('din controller',createOrderDto);
     this.ordersService.create(createOrderDto);
-    return {
-      message: 'Order and data uploaded successfully',
-      data: createOrderDto, // This contains the DTO data
-    };
+    // return {
+    //   message: 'Order and data uploaded successfully',
+    //   data: createOrderDto // This contains the DTO data
+    // };
      //return this.ordersService.create(createOrderDto);
   }
 

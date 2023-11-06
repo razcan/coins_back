@@ -23,5 +23,5 @@ export class Order {
     ShippingMethod: string;
     
      @OneToMany(() => OrderDetails, (orderdetails) => orderdetails.order)
-     orderdetails: OrderDetails;
+     orderdetails: OrderDetails[];
 }

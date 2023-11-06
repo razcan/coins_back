@@ -2,3 +2,4 @@
 2. trimitere email
 3. de implementat a doua limba
 4. de realizat pagina de administrare monede + vizualizare comenzi
+integrare cu euplatesc.ro? cum se face plata?
