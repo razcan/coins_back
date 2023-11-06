@@ -1,6 +1,4 @@
-export class CreateOrderDto {
-
-    
+export class CreateOrderDto { 
     OrderDate: Date;
     Customer: string;	
     TotalAmount: number;
@@ -8,5 +6,4 @@ export class CreateOrderDto {
     ShippingAddress: string;	
     PaymentMethod: string;
     ShippingMethod: string;
-
 }

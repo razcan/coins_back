@@ -19,8 +19,6 @@ export class OrderDetails {
     Discount: number;
     @Column()
     Total: number;
-    @Column()
-    OrderStatus: string; 
 
      @ManyToOne(() => Order, (order) => order.orderdetails)
      order: Order;
