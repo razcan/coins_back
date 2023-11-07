@@ -19,11 +19,13 @@ export class OrderDetails {
     Discount: number;
     @Column()
     Total: number;
+    @Column()
+    orderId: number;
 
      @ManyToOne(() => Order, (order) => order.orderdetails)
      order: Order;
 
-     @ManyToMany(() => Coin)
-     @JoinTable()
-     coin: Coin[]
+    //  @ManyToMany(() => Coin)
+    //  @JoinTable()
+    //  coin: Coin[]
 }

@@ -63,7 +63,7 @@ uploadFiles(@UploadedFiles() files, @Body() createCoinDto: CreateCoinDto,@Body()
     message: 'Files and data uploaded successfully',
     fileCount: files.length,
     filesInfo: files,
-    data: createCoinDto, // This contains the DTO data
+    data: createCoinDto, 
   };
 }
 
