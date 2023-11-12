@@ -1,39 +1,25 @@
 export class CreateCoinDto {
 
-    Issuer: string;	//Romania 
+    Continent: string;	
+  
+    Country: string;	
 
-    Prince: string;	//Alexandru Ioan Cuza (1859-1862)
+    Catalog: string;	
+ 
+    Value: string;	
 
-    Type: string;	//Pattern
+    Name: string;	
 
-    Year: number	//1864
+    Year: number	
+    
+    Composition: string;	
+   
+    Status: string;	
+ 
+    Price: number;	
+  
+    References: string;	
 
-    Value: string;	//5 Sutimi = 1⁄20 Romanat (0.05)
-
-    Currency: string;	//Român
-
-    Composition: string;	//Bronze
-
-    Weight: number;	//7.28 g
-
-    Diameter: number;	//22.5 mm
-
-    Shape: string;	//Round
-
-    Technique: string;	//Milled
-
-    Demonetized: boolean	//Yes
-
-    Number: number;	//N# 197210 Help
-
-    References: string;	//KM# Pn B1, MBR# 185
-
-    Script: string; //Latin
-
-    Stock: number; //5
-
-    Price: number; //10
-
-    Worn: string; //very used
-
+    Stock: number;
+  
 }

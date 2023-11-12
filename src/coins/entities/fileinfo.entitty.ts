@@ -26,6 +26,8 @@ export class FileInfo{
     @Column({nullable: true})
     size: number;//5800
     @Column({nullable: true})
+    coin_face: boolean;
+    @Column({nullable: true})
     coinId: number;//5800
 
 

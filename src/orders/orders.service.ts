@@ -27,9 +27,9 @@ export class OrdersService {
     {
       createOrderDto.DetailsOrder[i].orderId=order_rezult.id;
     }
-    console.log(createOrderDto.DetailsOrder);
     await this.orderdetailsRepository.save(createOrderDto.DetailsOrder);
-   return 'This action adds a new order: '+createOrderDto;
+   
+    return createOrderDto;
   }
 
   findAll() {
@@ -102,5 +102,6 @@ export class OrdersService {
     this.orderdetailsRepository.delete({orderId: id});
   }
      this.orderRepository.delete({id});
-  }
+  
+    }
   }

@@ -3,7 +3,6 @@ import { CoinsService } from './coins.service';
 import { CreateCoinDto } from './dto/create-coin.dto';
 import { CreateFileInfoDTO } from './dto/create-fileinfo.dto'
 import { UpdateCoinDto } from './dto/update-coin.dto';
-import { FileDto } from './dto/file-coin.dto';
 
 import { StreamableFile, Res } from '@nestjs/common';
 import { createReadStream } from 'fs';
@@ -120,24 +119,24 @@ console.log(file);
 // }
 
 //file with type validation
-@UseInterceptors(FileInterceptor('file'))
-  @Post('file/fail-validation')
-  uploadFileAndFailValidation(
-    @Body() body: FileDto,
-    @UploadedFile(
-      new ParseFilePipeBuilder()
-        .addFileTypeValidator({
-          fileType: 'jpeg',
-        })
-        .build(),
-    )
-    file: Express.Multer.File,
-  ) {
-    return {
-      body,
-      file: file.buffer.toString(),
-    };
-  }
+// @UseInterceptors(FileInterceptor('file'))
+//   @Post('file/fail-validation')
+//   uploadFileAndFailValidation(
+//     @Body() body: FileDto,
+//     @UploadedFile(
+//       new ParseFilePipeBuilder()
+//         .addFileTypeValidator({
+//           fileType: 'jpeg',
+//         })
+//         .build(),
+//     )
+//     file: Express.Multer.File,
+//   ) {
+//     return {
+//       body,
+//       file: file.buffer.toString(),
+//     };
+//   }
 
 
 

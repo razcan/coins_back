@@ -12,41 +12,29 @@ export class Coin {
     @CreateDateColumn()
     CreatedAt: Date;
     @Column()
-    Issuer: string;	//Romania 
+    Continent: string;	
     @Column()
-    Prince: string;	//Alexandru Ioan Cuza (1859-1862)
+    Country: string;	
     @Column()
-    Type: string;	//Pattern
+    Catalog: string;	
     @Column()
-    Year: number	//1864
+    Value: string;	
     @Column()
-    Value: string;	//5 Sutimi = 1⁄20 Romanat (0.05)
+    Name: string;	
     @Column()
-    Currency: string;	//Român
+    Year: number	
     @Column()
-    Composition: string;	//Bronze
+    Composition: string;	
     @Column()
-    Weight: number;	//7.28 g
+    Status: string;	
     @Column()
-    Diameter: number;	//22.5 mm
+    Price: number;	
     @Column()
-    Shape: string;	//Round
-    @Column()
-    Technique: string;	//Milled
-    @Column()
-    Demonetized: boolean	//Yes
-    @Column()
-    Number: number;	//N# 197210 Help
-    @Column()
-    References: string;	//KM# Pn B1, MBR# 185
-    @Column()
-    Script: string; //Latin
+    References: string;	
     @Column()
     Stock: number;
-    @Column()
-    Price: number;
-    @Column()
-    Worn: string;
+  
+ 
     
     @OneToMany(() => FileInfo, (fileinfos) => fileinfos.coin,  {
         cascade: ["insert", "update","remove","soft-remove"],

@@ -47,6 +47,8 @@ export class CoinsService {
     {
       file_related[i].coinId=coin_rezult.id;
     }
+
+    
    
     await this.coinRepository.save(createCoinDto)
     await this.fileRepository.save(file_related) ;
@@ -72,6 +74,50 @@ export class CoinsService {
         },
     }
     );
+
+    const monede = await this.coinRepository.find(
+      {where: {
+        id: id},
+      }
+    )
+
+    const fisiere = await this.fileRepository.find(
+      {where: {
+        coinId: id},
+      }
+    )
+   
+    const obj3 = Object.assign({}, fisiere,monede[0]);
+    console.log(obj3);
+
+    // console.log(rez)
+
+    // const fisiereByCoinId = fisiere.reduce((next, fisier) => {
+    //   const { coinId } = fisier;
+    //   return { ...next, [coinId]: fisier };
+    // }, {});
+
+    // const fisiereByCoinId2 = monede.reduce((next, fisier) => {
+    //   const { id } = fisier;
+    //   return { ...next, [id]: fisier };
+    // }, {});
+
+    // console.log(fisiereByCoinId2);
+
+    // console.log(monede);
+    // console.log(fisiere);
+
+    // const result = { ...monede, ...fisiere };
+
+   
+
+    //   const  complet = monede.map((moneda) => {
+    //   const fisier = fisiere.find((fisier) => (moneda.id == fisier.coinId));
+    //   return { ...monede, fisier };
+    // });
+
+    
+
     //myArray = myArray.concat(myObject); // Add the object to the array
     const newArray = web_link.map(item => item.fileinfos);
     
@@ -82,15 +128,13 @@ export class CoinsService {
     //   console.log(web_link[i].fileinfos[j].path);
 
     //  }
-    const newArray2 = newArray[0].map(item => 'http://localhost:3000/coins/download/'+item.filename);
-    const myArray = [...web_link, newArray2]; 
-     return myArray;
-    
 
-    // console.log('gigiiiiiiiiiiiiiiiii',web_link[0].fileinfos[0].filename);
-    // const fileStream = createReadStream(`./upload/${web_link[0].fileinfos[0].filename}`);
-    // const link = `http://localhost:3000/coins/download/${web_link[0].fileinfos[0].filename}`
-    //return link;
+    // https://www.redbitdev.com/post/using-array-reduce-with-objects
+    const newArray2 = newArray[0].map(item => 'http://localhost:3000/coins/download/'+item.filename);
+   // console.log(newArray2);
+    const myArray = [...web_link, newArray2]; 
+    //  return myArray;
+     return obj3;
 
     // return this.coinRepository.find(
     //   { where: {
