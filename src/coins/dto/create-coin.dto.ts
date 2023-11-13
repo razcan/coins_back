@@ -21,5 +21,10 @@ export class CreateCoinDto {
     References: string;	
 
     Stock: number;
+
+    Photo1: string;	 
+    
+    Photo2: string;	 
+ 
   
 }

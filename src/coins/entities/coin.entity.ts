@@ -33,7 +33,10 @@ export class Coin {
     References: string;	
     @Column()
     Stock: number;
-  
+    @Column()
+    Photo1: string;	 
+    @Column()
+    Photo2: string;	 
  
     
     @OneToMany(() => FileInfo, (fileinfos) => fileinfos.coin,  {

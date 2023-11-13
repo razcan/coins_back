@@ -41,85 +41,60 @@ export class CoinsService {
   async create(createCoinDto: CreateCoinDto, createFileInfoDto: CreateFileInfoDTO[]) {   
 
     const file_related = createFileInfoDto;
+
+    createCoinDto.Photo1 =file_related[0].filename;
+    createCoinDto.Photo2 =file_related[1].filename;
+
     const coin_rezult  =  await this.coinRepository.save(createCoinDto)
-//to
+
     for (let i=0 ; i<file_related.length; i++)
     {
       file_related[i].coinId=coin_rezult.id;
     }
 
-    
-   
     await this.coinRepository.save(createCoinDto)
     await this.fileRepository.save(file_related) ;
 
   }
 
   async findAll() {
-    return this.coinRepository.find(
-      {
-        relations: {
-          fileinfos: true,
-        },
-    }
-    );
+    return this.coinRepository.find(); 
+    // return this.coinRepository.find(
+    //   {
+    //     relations: {
+    //       fileinfos: true,
+    //     },
+    // }
+    // );
   }
 
   async findOne(id: number) {
     const web_link = await this.coinRepository.find(
       {where: {
             id: id},
-        relations: {
-          fileinfos: true,
-        },
+      
     }
     );
 
-    const monede = await this.coinRepository.find(
-      {where: {
-        id: id},
-      }
-    )
+    // const monede = await this.coinRepository.find(
+    //   {where: {
+    //     id: id},
+    //   }
+    // )
 
-    const fisiere = await this.fileRepository.find(
-      {where: {
-        coinId: id},
-      }
-    )
+    // const fisiere = await this.fileRepository.find(
+    //   {where: {
+    //     coinId: id},
+    //   }
+    // )
+
+    // const valueForKey0 = fisiere["0"];
+    // const valueForKey1 = fisiere["1"];
+    // console.log(valueForKey0.filename);  // Output: Hello, World!
+    // console.log(valueForKey1.filename);  // Output: Hello, World!
    
-    const obj3 = Object.assign({}, fisiere,monede[0]);
-    console.log(obj3);
-
-    // console.log(rez)
-
-    // const fisiereByCoinId = fisiere.reduce((next, fisier) => {
-    //   const { coinId } = fisier;
-    //   return { ...next, [coinId]: fisier };
-    // }, {});
-
-    // const fisiereByCoinId2 = monede.reduce((next, fisier) => {
-    //   const { id } = fisier;
-    //   return { ...next, [id]: fisier };
-    // }, {});
-
-    // console.log(fisiereByCoinId2);
-
-    // console.log(monede);
-    // console.log(fisiere);
-
-    // const result = { ...monede, ...fisiere };
-
-   
-
-    //   const  complet = monede.map((moneda) => {
-    //   const fisier = fisiere.find((fisier) => (moneda.id == fisier.coinId));
-    //   return { ...monede, fisier };
-    // });
-
-    
-
     //myArray = myArray.concat(myObject); // Add the object to the array
-    const newArray = web_link.map(item => item.fileinfos);
+    // const newArray = web_link.map(item => item.fileinfos);
     
     // const response_length= web_link.length;
     // const response_length_fileinfos= web_link[0].fileinfos.length;
@@ -129,22 +104,11 @@ export class CoinsService {
 
     //  }
 
-    // https://www.redbitdev.com/post/using-array-reduce-with-objects
-    const newArray2 = newArray[0].map(item => 'http://localhost:3000/coins/download/'+item.filename);
-   // console.log(newArray2);
-    const myArray = [...web_link, newArray2]; 
-    //  return myArray;
-     return obj3;
+  //   const newArray2 = newArray[0].map(item => 'http://localhost:3000/coins/download/'+item.filename);
+  //  // console.log(newArray2);
+  //   const myArray = [...web_link, newArray2]; 
+    return web_link;
 
-    // return this.coinRepository.find(
-    //   { where: {
-    //     id: id},
-    //     relations: {
-    //       fileinfos: true,
-    //     }
-    //   }
-      
-    //   );
   }
 
   update(id: number, updateCoinDto: UpdateCoinDto) {
