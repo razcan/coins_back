@@ -55,15 +55,16 @@ export class CoinsController {
 
 @Post('uploadm')
 @UseInterceptors(FilesInterceptor('files'))
-uploadFiles(@UploadedFiles() files, @Body() createCoinDto: CreateCoinDto,@Body() createFileDto: CreateFileInfoDTO[]) {
+uploadFiles(@UploadedFiles() files, @Body() createCoinDto: any,@Body() createFileDto: CreateFileInfoDTO[]) {
   createFileDto=files;
   this.coinsService.create(createCoinDto,createFileDto);
-  return {
-    message: 'Files and data uploaded successfully',
-    fileCount: files.length,
-    filesInfo: files,
-    data: createCoinDto, 
-  };
+  //return createCoinDto.files.length
+  // {
+  //   message: 'Files and data uploaded successfully',
+  //   fileCount: createCoinDto.files.length,
+  //   filesInfo: files,
+  //   data: createCoinDto, 
+  // };
 }
 
   @Get()

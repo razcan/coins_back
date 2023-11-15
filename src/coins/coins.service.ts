@@ -42,8 +42,10 @@ export class CoinsService {
 
     const file_related = createFileInfoDto;
 
+    //console.log('serviciu:',createFileInfoDto);
+
     createCoinDto.Photo1 =file_related[0].filename;
-    createCoinDto.Photo2 =file_related[1].filename;
+    //createCoinDto.Photo2 =file_related[1].filename;
 
     const coin_rezult  =  await this.coinRepository.save(createCoinDto)
 
@@ -52,8 +54,10 @@ export class CoinsService {
       file_related[i].coinId=coin_rezult.id;
     }
 
-    await this.coinRepository.save(createCoinDto)
+    const rezult = await this.coinRepository.save(createCoinDto)
     await this.fileRepository.save(file_related) ;
+    return rezult;
+    
 
   }
 
