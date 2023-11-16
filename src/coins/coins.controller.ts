@@ -57,8 +57,17 @@ export class CoinsController {
 @UseInterceptors(FilesInterceptor('files'))
 uploadFiles(@UploadedFiles() files, @Body() createCoinDto: any,@Body() createFileDto: CreateFileInfoDTO[]) {
   createFileDto=files;
+  console.log(files);
+  // console.log('controller fisiere',createCoinDto)
+  // console.log('controller fisiere',createCoinDto)
+ //  console.log('tot comtr', createCoinDto.files)
+   const filesall = createCoinDto;
+   //const buffer = Buffer.from(filesall.data);
+ //console.log('buffer',filesall);
+
+
   this.coinsService.create(createCoinDto,createFileDto);
-  //return createCoinDto.files.length
+  // return createCoinDto.files.length
   // {
   //   message: 'Files and data uploaded successfully',
   //   fileCount: createCoinDto.files.length,
