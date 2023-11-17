@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param,Header, Delete, UploadedFile, UploadedFiles } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param,Header,HttpStatus,
+ Delete, UploadedFile, UploadedFiles, HttpException, HttpCode } from '@nestjs/common';
 import { CoinsService } from './coins.service';
 import { CreateCoinDto } from './dto/create-coin.dto';
 import { CreateFileInfoDTO } from './dto/create-fileinfo.dto'
 import { UpdateCoinDto } from './dto/update-coin.dto';
-
 import { StreamableFile, Res } from '@nestjs/common';
 import { createReadStream } from 'fs';
 import { join } from 'path';
@@ -54,19 +54,24 @@ export class CoinsController {
 // }
 
 @Post('uploadm')
+@HttpCode(201)
 @UseInterceptors(FilesInterceptor('files'))
-uploadFiles(@UploadedFiles() files, @Body() createCoinDto: any,@Body() createFileDto: CreateFileInfoDTO[]) {
+uploadFiles(@UploadedFiles() files, @Body() createCoinDto: any,
+@Body() createFileDto: CreateFileInfoDTO[],
+@Res() res: Response
+) {
   createFileDto=files;
-  console.log(files);
-  // console.log('controller fisiere',createCoinDto)
-  // console.log('controller fisiere',createCoinDto)
- //  console.log('tot comtr', createCoinDto.files)
-   const filesall = createCoinDto;
-   //const buffer = Buffer.from(filesall.data);
- //console.log('buffer',filesall);
+  this.coinsService.create(createCoinDto,createFileDto)
+  //const httpstatus = res.status(HttpStatus.CREATED).send();
+  const test = res.statusCode;
+  if (test==201){
+    throw new HttpException('Created', HttpStatus.CREATED);
+  }
+}
 
-
-  this.coinsService.create(createCoinDto,createFileDto);
+  // throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+  
+  
   // return createCoinDto.files.length
   // {
   //   message: 'Files and data uploaded successfully',
@@ -74,7 +79,6 @@ uploadFiles(@UploadedFiles() files, @Body() createCoinDto: any,@Body() createFil
   //   filesInfo: files,
   //   data: createCoinDto, 
   // };
-}
 
   @Get()
   findAll() {

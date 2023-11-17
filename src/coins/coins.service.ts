@@ -53,10 +53,9 @@ export class CoinsService {
     {
       file_related[i].coinId=coin_rezult.id;
     }
-
-    const rezult = await this.coinRepository.save(createCoinDto)
+    // await this.coinRepository.save(createCoinDto)
     await this.fileRepository.save(file_related) ;
-    return rezult;
+    // return rezult;
     
 
   }
