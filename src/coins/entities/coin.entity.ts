@@ -16,6 +16,8 @@ export class Coin {
     @Column()
     Country: string;	
     @Column()
+    Code: string;
+    @Column()
     Catalog: string;	
     @Column()
     Value: string;	

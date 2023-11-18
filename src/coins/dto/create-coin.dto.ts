@@ -4,6 +4,8 @@ export class CreateCoinDto {
   
     Country: string;	
 
+    Code: string;
+
     Catalog: string;	
  
     Value: string;	
