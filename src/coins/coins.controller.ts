@@ -177,8 +177,12 @@ uploadFile3(@UploadedFiles() files) {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCoinDto: UpdateCoinDto) {
-    return this.coinsService.update(+id, updateCoinDto);
+  @UseInterceptors(FilesInterceptor('files')) 
+  update(@UploadedFiles() files , @Param('id') id: string, @Body() updateCoinDto: any, 
+  @Body() createCoinDto: any, @Res() res: Response, @Body() createFileDto: CreateFileInfoDTO[]) 
+  {
+   createFileDto=files;
+   return this.coinsService.update(+id,createCoinDto,createFileDto)
   }
 
   @Delete(':id')

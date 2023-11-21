@@ -114,9 +114,28 @@ export class CoinsService {
 
   }
 
-  update(id: number, updateCoinDto: UpdateCoinDto) {
-    return this.coinRepository.update(id, updateCoinDto);
+ async update(id: number, updateCoinDto: UpdateCoinDto, createFileInfoDto: CreateFileInfoDTO[]) {
+
+    const toremove = await this.fileRepository.find({
+      where: {
+          coinId: id
+      },
+  })
+console.log('de sters',toremove);
+
+  for (let i=0 ; i<toremove.length; i++)
+  {
+    this.deletePicture(toremove[i].filename);
   }
+    this.fileRepository.save(createFileInfoDto);
+
+    this.coinRepository.update(id, updateCoinDto);
+
+    return 
+
+  }
+
+
 
   async remove(id: number) {
 
