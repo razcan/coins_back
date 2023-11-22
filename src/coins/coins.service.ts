@@ -114,24 +114,39 @@ export class CoinsService {
 
   }
 
- async update(id: number, updateCoinDto: UpdateCoinDto, createFileInfoDto: CreateFileInfoDTO[]) {
+ async update(id: number, updateCoinDto: UpdateCoinDto, 
+  createFileInfoDto: CreateFileInfoDTO[]) {
+    
+    // if (createFileInfoDto.length ==0){
+    //   console.log(createFileInfoDto.length);
+    // }
+ 
+    // console.log(file_related.length);
 
-    const toremove = await this.fileRepository.find({
-      where: {
-          coinId: id
-      },
-  })
-console.log('de sters',toremove);
+//     if (file_related.length =2)
+//   {
+//           updateCoinDto.Photo1 =file_related[0].filename;
+//           updateCoinDto.Photo2 =file_related[1].filename;
 
-  for (let i=0 ; i<toremove.length; i++)
-  {
-    this.deletePicture(toremove[i].filename);
-  }
-    this.fileRepository.save(createFileInfoDto);
+//           const toremove = await this.fileRepository.find({
+//             where: {
+//                 coinId: id
+//             },
+//         })
 
-    this.coinRepository.update(id, updateCoinDto);
-
-    return 
+//         for (let i=0 ; i<toremove.length; i++)
+//         {
+//           this.deletePicture(toremove[i].filename);
+//         }
+//           this.fileRepository.delete({coinId: id});
+//           this.fileRepository.save(createFileInfoDto);
+//           this.coinRepository.update(id, updateCoinDto);
+// } 
+if (createFileInfoDto.length ==0) {
+  console.log('pe aici')
+  console.log(updateCoinDto);
+  this.coinRepository.update(id, updateCoinDto);
+}
 
   }
 
