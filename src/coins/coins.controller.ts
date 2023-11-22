@@ -185,8 +185,16 @@ uploadFile3(@UploadedFiles() files) {
     @Body() createFileDto: CreateFileInfoDTO[]) 
   {
    createFileDto=files;
-  // console.log('files', files)
-   return this.coinsService.update(+id,updateCoinDto,createFileDto)
+   console.log(createFileDto.length)
+   
+   if (createFileDto.length == 2){
+    return this.coinsService.update(+id,updateCoinDto,createFileDto)
+   }
+
+   if (createFileDto.length == 0){
+    return this.coinsService.updateWithoutFiles(+id,updateCoinDto)
+   }
+
   }
 
   @Delete(':id')
