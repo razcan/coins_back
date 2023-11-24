@@ -71,6 +71,26 @@ export class CoinsService {
     // );
   }
 
+
+  async findCountries() {
+   // select Continent , Country , Code, count(*)Nr from coin group by Continent , Country , Code
+
+   // Get the EntityManager
+   //const entityManager = connection.createEntityManager();
+
+   // Define your custom SQL query
+  //  const customQuery = 'SELECT * FROM user WHERE email LIKE :email';
+   const customQuery = 
+   'select Continent , Country , Code, count(*)Nr from coin group by Continent , Country , Code';
+
+    // Execute the query with parameters
+    // const results = await this.coinRepository.query(customQuery, { email: 'example@example.com' });
+    const results = await this.coinRepository.query(customQuery);
+    // console.log(results);
+    return results
+
+  }
+
   async findOne(id: number) {
     const web_link = await this.coinRepository.find(
       {where: {

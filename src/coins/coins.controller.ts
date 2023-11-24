@@ -85,6 +85,13 @@ uploadFiles(@UploadedFiles() files, @Body() createCoinDto: any,
     return this.coinsService.findAll();
   }
 
+  @Get('countries')
+  findCountries() {
+   // console.log('tari');
+    return this.coinsService.findCountries();
+  }
+
+
   @Get('download/:filename')
   downloadFile(@Param('filename') filename: string, @Res() res: Response) {
     const fileStream = createReadStream(`./upload/${filename}`);
@@ -118,43 +125,6 @@ console.log(file);
   // fs.promises.writeFile(`./upload/${file.originalname}`, file.buffer);
 }
 
-
-
-// @UseInterceptors(FileInterceptor('file'))
-// @Post('upload')
-// uploadFile(
-//   @Body() body: FileDto,
-//   @UploadedFile() file: Express.Multer.File,
-// ) {
-//   return {
-//     body,
-//     file: file.buffer.toString(),
-//   };
-// }
-
-//file with type validation
-// @UseInterceptors(FileInterceptor('file'))
-//   @Post('file/fail-validation')
-//   uploadFileAndFailValidation(
-//     @Body() body: FileDto,
-//     @UploadedFile(
-//       new ParseFilePipeBuilder()
-//         .addFileTypeValidator({
-//           fileType: 'jpeg',
-//         })
-//         .build(),
-//     )
-//     file: Express.Multer.File,
-//   ) {
-//     return {
-//       body,
-//       file: file.buffer.toString(),
-//     };
-//   }
-
-
-
-
 @Post('file4')
 @UseInterceptors(FilesInterceptor('files', 20))
 uploadFile3(@UploadedFiles() files) {
@@ -175,6 +145,8 @@ uploadFile3(@UploadedFiles() files) {
   findOne(@Param('id') id: string) {
     return this.coinsService.findOne(+id);
   }
+
+
 
   @Patch(':id')
   @UseInterceptors(FilesInterceptor('files')) 
