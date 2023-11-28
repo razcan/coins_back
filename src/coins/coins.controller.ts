@@ -87,10 +87,15 @@ uploadFiles(@UploadedFiles() files, @Body() createCoinDto: any,
 
   @Get('countries')
   findCountries() {
-   // console.log('tari');
     return this.coinsService.findCountries();
   }
 
+
+  @Get('getcoinsbycountry/:country')
+  getcoinsbycountry(@Param('country') country: string) {
+    //console.log(country);
+    return this.coinsService.getcoinsbycountry(country);
+  }
 
   @Get('download/:filename')
   downloadFile(@Param('filename') filename: string, @Res() res: Response) {

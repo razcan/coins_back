@@ -91,6 +91,14 @@ export class CoinsService {
 
   }
 
+  async getcoinsbycountry(country: string) {
+    const results = await this.coinRepository
+      .createQueryBuilder('coin')
+      .where('coin.Country = :Country', { Country: country })
+      .getMany();
+   return results;    
+  }
+
   async findOne(id: number) {
     const web_link = await this.coinRepository.find(
       {where: {
