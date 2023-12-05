@@ -15,13 +15,19 @@ export class OrdersController {
 
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    this.ordersService.create(createOrderDto);
+  create(@Body() createOrderDto: any) {
+
+
+    const header:CreateOrderDto = createOrderDto.header 
+    const details:CreateDetailsOrderDto = createOrderDto.orderDetails
+
+    //  console.log('details',createOrderDto.orderDetails[0].orderId)
+    this.ordersService.create(header,details);
     // return {
     //   message: 'Order and data uploaded successfully',
     //   data: createOrderDto // This contains the DTO data
     // };
-    return this.ordersService.create(createOrderDto);
+    // return this.ordersService.create(createOrderDto);
   }
 
   @Get()

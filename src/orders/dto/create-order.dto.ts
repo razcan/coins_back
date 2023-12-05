@@ -6,4 +6,7 @@ export class CreateOrderDto {
     ShippingAddress: string;	
     PaymentMethod: string;
     ShippingMethod: string;
+    Email: string;
+    Phone: string;
+    Remarks: string;
 }

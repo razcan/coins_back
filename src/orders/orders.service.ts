@@ -17,19 +17,18 @@ export class OrdersService {
     private readonly orderdetailsRepository: Repository<OrderDetails>,
   ) {}
 
-  async create(createOrderDto: any) {
- 
-    const order_details = createOrderDto.DetailsOrder.length;
+  async create(header : any, details: any) {
 
-    const order_rezult = await this.orderRepository.save(createOrderDto);
+     const order_details = details.length;
+     const order_rezult = await this.orderRepository.save(header);
 
     for (let i=0 ; i<order_details; i++)
     {
-      createOrderDto.DetailsOrder[i].orderId=order_rezult.id;
+      details[i].orderId=order_rezult.id;
     }
-    await this.orderdetailsRepository.save(createOrderDto.DetailsOrder);
+     await this.orderdetailsRepository.save(details);
    
-    return createOrderDto;
+     return order_rezult;
   }
 
   findAll() {

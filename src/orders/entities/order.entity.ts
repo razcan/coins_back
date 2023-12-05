@@ -21,6 +21,12 @@ export class Order {
     PaymentMethod: string;
     @Column()
     ShippingMethod: string;
+    @Column()
+    Email: string;
+    @Column()
+    Phone: string;
+    @Column()
+    Remarks: string;
     
      @OneToMany(() => OrderDetails, (orderdetails) => orderdetails.order)
      orderdetails: OrderDetails[];
