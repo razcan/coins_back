@@ -1,15 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,OneToMany,JoinTable,OneToOne, InsertResult,JoinColumn,TreeChildren,TreeParent } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,OneToMany,JoinTable,OneToOne, 
+    InsertResult,JoinColumn,TreeChildren,TreeParent } from 'typeorm';
 import { OrderDetails } from './orderdetail.entity';
 import { SetMetadata } from '@nestjs/common';
 
-SetMetadata('IS_PUBLIC_KEY', true)
+
 @Entity()
 export class Order {
 
     @PrimaryGeneratedColumn()
     id: number;
-    // @PrimaryGeneratedColumn("uuid")
-    // uuid: string;
+    @Column()
+    uuid: string;
     @CreateDateColumn()
     CreatedAt: Date;
     @Column()

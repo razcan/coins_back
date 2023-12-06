@@ -10,6 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import config from '../../ormconfig';
 import { DataSource } from "typeorm"
 import "reflect-metadata"
+import {v4 as uuidv4} from 'uuid';
 
 
 const AppDataSource = new DataSource({
@@ -39,6 +40,7 @@ export class OrdersService {
   async create(header : any, details: any) {
 
      const order_details = details.length;
+     header.uuid = uuidv4();
      const order_rezult = await this.orderRepository.save(header);
 
     for (let i=0 ; i<order_details; i++)
@@ -71,7 +73,7 @@ export class OrdersService {
     );
   }
 
- async clientOrder(id: number) {
+ async clientOrder(id: string) {
   console.log(id)
 
   const manager = this.orderRepository
@@ -82,97 +84,22 @@ export class OrdersService {
   FROM [order] o
   join order_details od2  on od2.orderId  =o.id 
   join coin c on c.id =od2.CoinId 
-  where o.id =${id}
-  ;
-  `
-  const result = await manager.query(custom_query)
+  where o.uuid like '${id}'
+  ;`
 
-  // const users = await AppDataSource.query(
-  //   'select * FROM order '
-  // );
-
-console.log(result);
-
-//   const manager = AppDataSource.manager;
-//   const result = await manager.query('select * FROM order WHERE id = 1', [
-//       1,
-//     ]);
-// console.log(result);
-
-  // const user = await AppDataSource.manager
-  //   .createQueryBuilder(Order, "order")
+  // Using repository:
+  // const order2 = await manager
+  //   .createQueryBuilder("order")
   //   .where("order.id = :id", { id: 1 })
   //   .getOne()
 
+  //   console.log('a',order2)
 
+ const result = await manager.query(custom_query)
 
-  // return await this.order2Repository.getOrders();
-  
-
-//   const DataSource =   AppDataSource.getRepository(Order)
-// console.log('z',DataSource)
-
-//const userMetadata = AppDataSource.hasMetadata(Order)
-
-// const userMetadata = this.dataSource;
-// const order = await AppDataSource
-//     .createQueryBuilder()
-//     .select("order")
-//     .from(Order, "order")
-//     .where("order.id = :id", { id: 1 })
-//     .getOne()
-
-    // console.log('order',userMetadata)
-
-// const order = await DataSource.manager
-//     .createQueryBuilder(Order, "user")
-//     .where("user.id = :id", { id: 1 })
-//     .getOne()
-
-//     console.log(order)
-
-
-  // const person = await AppDataSource.manager.findOneBy(Order, { id: 1 })
-
-//   const user = await AppDataSource.getRepository(Order).findOneBy({
-//     id: '39',
-// })
-
-  // const person = await AppDataSource.getRepository().findOneBy({ id: 1 })
-  //  console.log(person);
-
-  // return this.orderRepository.find()
-
-  // const firstOrder = await AppDataSource
-  //   .getRepository(Order)
-  //   .createQueryBuilder("order")
-  //   .where("id = :id", { id: 39 })
-  //   .getOne()
-
-    // const firstOrder = await config.manager
-    // .createQueryBuilder(Order, "order")
-    // .where("order.id = :id", { id: 39 })
-    // .getOne()
-
-    // console.log('ia sa vedem',firstOrder)
-
-  // return AppDataSource.manager.find(Order)
-
-  // const user = await AppDataSource.getRepository
-
-    // const customQuery = 
-    // 'SELECT o.id,o.OrderDate ,o.Customer ,o.TotalAmount ,o.OrderStatus ,o.ShippingAddress ,Email ,Phone , od.Quantity ,od.UnitPrice ,od.UnitPrice ,od.Total ,
-    // c.Code ,c.Name ,c.Photo1 , c.Photo2 ,c.Year ,c.Status 
-    // FROM order o
-    // join order_details od on od.orderId  =o.id 
-    // join coin c on c.id =od.CoinId 
-    // where o.id=39';
- 
-     // Execute the query with parameters
-     // const results = await this.coinRepository.query(customQuery, { email: 'example@example.com' });
-    //  const results = await this.orde.query(customQuery);
-
+ return result
   }
+
 
  async update(id: any, updateOrderDto: any) {
 

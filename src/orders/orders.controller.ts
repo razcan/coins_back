@@ -12,18 +12,10 @@ export class OrdersController {
 
   @Post()
   create(@Body() createOrderDto: any) {
-
-
     const header:CreateOrderDto = createOrderDto.header 
     const details:CreateDetailsOrderDto = createOrderDto.orderDetails
-
-    //  console.log('details',createOrderDto.orderDetails[0].orderId)
     this.ordersService.create(header,details);
-    // return {
-    //   message: 'Order and data uploaded successfully',
-    //   data: createOrderDto // This contains the DTO data
-    // };
-    // return this.ordersService.create(createOrderDto);
+   
   }
 
   @Get()
@@ -32,10 +24,9 @@ export class OrdersController {
   }
 
   @Get('client/:id')
-  @SetMetadata('roles', ['admin'])
-  clientOrder(@Param('id') id: number) {
+  clientOrder(@Param('id') id: string) {
     // console.log('paici')
-    return this.ordersService.clientOrder(+id);
+    return this.ordersService.clientOrder(id);
   }
 
   @Get(':id')
