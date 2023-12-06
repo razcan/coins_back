@@ -5,3 +5,8 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin git@github.com:razcan/coins.git
 git push -u origin main
+
+
+npx typeorm migration:create ./Migrations 
+
+typeorm migration:run -- -d path-to-datasource-config

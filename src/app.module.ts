@@ -9,7 +9,8 @@ import config from '../ormconfig'
 @Module({
   imports: [  
     TypeOrmModule.forRoot(
-    config
+    config,
+    
     ), CoinsModule, OrdersModule],
   controllers: [AppController],
   providers: [AppService],

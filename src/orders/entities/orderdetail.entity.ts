@@ -21,6 +21,7 @@ export class OrderDetails {
     Total: number;
     @Column()
     orderId: number;
+    
 
      @ManyToOne(() => Order, (order) => order.orderdetails)
      order: Order;
