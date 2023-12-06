@@ -4,10 +4,16 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { CreateDetailsOrderDto } from './dto/createdetails-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 
+import { MailerService } from '../../mailer.service'
+
+
 @Controller('orders')
 export class OrdersController {
+
+
   constructor(private readonly ordersService: OrdersService,
-    ) {}
+    ) {
+    }
 
 
   @Post()
@@ -17,6 +23,20 @@ export class OrdersController {
     this.ordersService.create(header,details);
    
   }
+
+@Post('sendEmail')
+async sendMail(): Promise<void> {
+const mailerService = new MailerService();
+
+const to = 'razvan.mustata@gmail.com';
+const subject = 'Test Email';
+const text = 'This is a test email sent from a Node.js app with nodemailer.';
+
+mailerService.sendMail(to, subject, text)
+  .then(() => console.log('Email sent successfully.'))
+  .catch(error => console.error('Error sending email:', error));
+}
+
 
   @Get()
   findAll() {

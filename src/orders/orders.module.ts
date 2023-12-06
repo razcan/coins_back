@@ -6,12 +6,10 @@ import { multerConfig } from '../multer.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Order } from '../orders/entities/order.entity';
 import { OrderDetails } from '../orders/entities/orderdetail.entity';
-// import { orderProviders } from '../orders/entities/order.providers';
 
 @Module({
   controllers: [OrdersController],
   providers: [
-    // ...orderProviders,
     OrdersService
   ],
   exports: [OrdersService],
