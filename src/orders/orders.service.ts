@@ -11,6 +11,7 @@ import config from '../../ormconfig';
 import { DataSource } from "typeorm"
 import "reflect-metadata"
 import {v4 as uuidv4} from 'uuid';
+import { MailerService } from '../../mailer.service'
 
 
 const AppDataSource = new DataSource({
@@ -37,6 +38,46 @@ export class OrdersService {
     private dataSource: DataSource
   ) {}
 
+  async sendMail(header: any, url:any): Promise<void> {
+    const mailerService = new MailerService();
+
+     const dateTime = new Date();
+     const dateAsString = dateTime.toLocaleDateString();
+    
+    const to = 'razvan.mustata@gmail.com';
+    const bcc = 'razvan.mustata@nirogroup.ro'
+    const subject = 'A new order has been added';
+    const text = "";
+    const html = `<h1>
+    <br>
+    Draga ${header.Customer.toUpperCase()},
+    <br>
+    Am inregistrat comanda ta din data de: ${dateAsString} in valoare de ${header.TotalAmount} RON.
+    <br>
+    Adresa la care se va transmite aceasta comanda este: ${header.ShippingAddress}
+    <br>
+    Daca doriti sa vizualizati comanda, dati click pe linkul de mai jos:
+   <br>
+    </h1>
+    <a href="${url}">Order link</a>
+    `
+    const attachments = [
+    //   {   // binary buffer as an attachment
+    //     filename: 'text.txt',
+    //     content:  'hello world!'
+    // },
+    // {   // file on disk as an attachment
+    //   filename: 'git.txt',
+    //   path: '/Users/razvanmustata/Projects/coins/coins-backend/git.txt' // stream this file
+    // },
+    ]
+    
+    mailerService.sendMail(to,bcc, subject, text, html,attachments)
+      .then(() => console.log('Email sent successfully.'))
+      .catch(error => console.error('Error sending email:', error));
+    }
+    
+
   async create(header : any, details: any) {
 
      const order_details = details.length;
@@ -49,7 +90,13 @@ export class OrdersService {
     }
      await this.orderdetailsRepository.save(details);
    
+     const url = `http://localhost:3000/orders/client/${header.uuid}`
+
+     this.sendMail(header,url)
+    
      return order_rezult;
+
+
   }
 
   findAll() {
