@@ -59,7 +59,7 @@ export class OrdersService {
     Daca doriti sa vizualizati comanda, dati click pe linkul de mai jos:
    <br>
     </h1>
-    <a href="${url}">Order link</a>
+    <a href="${url}">Go to Order</a>
     `
     const attachments = [
     //   {   // binary buffer as an attachment
@@ -90,7 +90,7 @@ export class OrdersService {
     }
      await this.orderdetailsRepository.save(details);
    
-     const url = `http://localhost:3000/orders/client/${header.uuid}`
+     const url = `http://localhost:3001/customer/uuid?uuid=${header.uuid}`
 
      this.sendMail(header,url)
     
