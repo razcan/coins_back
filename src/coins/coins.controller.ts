@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param,Header,HttpStatus,
- Delete, UploadedFile, UploadedFiles, HttpException, HttpCode } from '@nestjs/common';
+ Delete, UploadedFile, UploadedFiles, HttpException, HttpCode,  Request, UseGuards } from '@nestjs/common';
 import { CoinsService } from './coins.service';
 import { CreateCoinDto } from './dto/create-coin.dto';
 import { CreateFileInfoDTO } from './dto/create-fileinfo.dto'
@@ -8,7 +8,6 @@ import { StreamableFile, Res } from '@nestjs/common';
 import { createReadStream } from 'fs';
 import { join } from 'path';
 import type { Response } from 'express';
-
 import { Express } from 'express'
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import {
@@ -18,8 +17,7 @@ import {
 import { FileInfo } from './entities/fileinfo.entitty';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
-
+import { AuthGuard } from '../auth/auth.guard'
 
 
 @Controller('coins')
@@ -53,6 +51,7 @@ export class CoinsController {
 // }
 // }
 
+// @UseGuards(AuthGuard)
 @Post('uploadm')
 @HttpCode(201)
 @UseInterceptors(FilesInterceptor('files'))
@@ -122,7 +121,7 @@ uploadFiles(@UploadedFiles() files, @Body() createCoinDto: any,
   //   return new StreamableFile(file);
   // }
 
-
+// @UseGuards(AuthGuard)
 @Post('upload')
 @UseInterceptors(FileInterceptor('file'))
 uploadFile(@UploadedFile() file: Express.Multer.File) {
@@ -130,6 +129,7 @@ console.log(file);
   // fs.promises.writeFile(`./upload/${file.originalname}`, file.buffer);
 }
 
+// @UseGuards(AuthGuard)
 @Post('file4')
 @UseInterceptors(FilesInterceptor('files', 20))
 uploadFile3(@UploadedFiles() files) {
@@ -152,7 +152,7 @@ uploadFile3(@UploadedFiles() files) {
   }
 
 
-
+  // @UseGuards(AuthGuard)
   @Patch(':id')
   @UseInterceptors(FilesInterceptor('files')) 
   update(
@@ -162,8 +162,7 @@ uploadFile3(@UploadedFiles() files) {
     @Body() createFileDto: CreateFileInfoDTO[]) 
   {
    createFileDto=files;
-   console.log(createFileDto.length)
-   
+ 
    if (createFileDto.length == 2){
     return this.coinsService.update(+id,updateCoinDto,createFileDto)
    }
@@ -174,6 +173,7 @@ uploadFile3(@UploadedFiles() files) {
 
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.coinsService.remove(+id);
