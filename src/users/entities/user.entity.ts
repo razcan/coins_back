@@ -5,10 +5,10 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,OneToMany,
 //Here we have the table structure - how the data it will be saved in DB. Comparing with DTO where we have only the entered values by user.
 
 @Entity()
-export class User {
+export class UserEnt {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    userId: number;
     @CreateDateColumn()
     createdat: Date;
     @Column()

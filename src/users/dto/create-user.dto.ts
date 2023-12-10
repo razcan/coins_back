@@ -1,4 +1,4 @@
-export class CreateCoinDto {
+export class CreateUserDto {
 
     username: string;
     password: string;	

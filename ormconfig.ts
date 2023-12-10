@@ -5,7 +5,7 @@ import { Coin } from './src/coins/entities/coin.entity'
 import { FileInfo } from "src/coins/entities/fileinfo.entitty";
 import { Order } from './src//orders/entities/order.entity'
 import { OrderDetails } from './src/orders/entities/orderdetail.entity'
-import {User} from './src/users/entities/user.entity'
+import {UserEnt} from './src/users/entities/user.entity'
 
 const config: SqliteConnectionOptions = {
     type: "sqlite",
@@ -14,7 +14,7 @@ const config: SqliteConnectionOptions = {
     // "entities": [
     //    './src/**/**/*.entity.{js,ts}'
     // ],
-     entities: [ Coin, FileInfo, Order ,OrderDetails, User],
+     entities: [ Coin, FileInfo, Order ,OrderDetails, UserEnt],
     // entities: [__dirname + '/../**/*.entity.{js,ts}'],
     // entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     // entities: [__dirname + '/../**/*.entity.*'],
