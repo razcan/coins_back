@@ -24,9 +24,15 @@ export class AuthService {
         const futureDate = new Date(currentDate.getTime());
         futureDate.setMinutes(currentDate.getMinutes() + 10);
 
+        interface MyJsonData {
+          access_token: string;
+          expire_date_token: Date;
+        }
+
            return {
              access_token: await this.jwtService.signAsync(payload),
              expire_date_token: futureDate,
+    
           };
   }
 
