@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { UserEnt } from '../users/entities/user.entity';
+import { format } from 'date-fns-tz';
 
 @Injectable()
 export class AuthService {
@@ -16,8 +17,16 @@ export class AuthService {
       throw new UnauthorizedException();
        }
        const payload = { sub: userrzc, username: userrzc };
+
+        const currentDate = new Date();
+
+        // Add 10 minutes to the current date
+        const futureDate = new Date(currentDate.getTime());
+        futureDate.setMinutes(currentDate.getMinutes() + 10);
+
            return {
              access_token: await this.jwtService.signAsync(payload),
+             expire_date_token: futureDate,
           };
   }
 
