@@ -39,6 +39,11 @@ export class Coin {
     Photo1: string;	 
     @Column()
     Photo2: string;	 
+    @Column()
+    StartDate: Date;	 
+    @Column()
+    EndDate: Date;	 
+
  
     
     @OneToMany(() => FileInfo, (fileinfos) => fileinfos.coin,  {

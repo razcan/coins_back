@@ -27,6 +27,10 @@ export class CreateCoinDto {
     Photo1: string;	 
     
     Photo2: string;	 
+
+    StartDate: Date;	 
+
+    EndDate: Date;	 
  
   
 }
