@@ -42,7 +42,20 @@ export class CoinsService {
 
      const file_related = createFileInfoDto;
 
-    //console.log('serviciu:',createFileInfoDto);
+     // Clone the input date to avoid modifying the original date
+    const resultStartDate = new Date(createCoinDto.StartDate);
+    const resultEndDate = new Date(createCoinDto.EndDate);
+   
+    // Subtract one day by adjusting the date value
+    resultStartDate.setDate(resultStartDate.getDate() + 1);
+    resultEndDate.setDate(resultEndDate.getDate() + 1);
+    
+    createCoinDto.StartDate = resultStartDate;
+    createCoinDto.EndDate = resultEndDate;
+    // console.log('serviciu:',createCoinDto.StartDate, createCoinDto.EndDate);
+
+    // createCoinDto.StartDate.setDate(createCoinDto.StartDate.getDate() + 1);
+    // createCoinDto.EndDate.setDate(createCoinDto.EndDate + 1);
 
     createCoinDto.Photo1 =file_related[0].filename;
     createCoinDto.Photo2 =file_related[1].filename;

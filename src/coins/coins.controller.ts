@@ -60,6 +60,7 @@ uploadFiles(@UploadedFiles() files, @Body() createCoinDto: any,
 @Res() res: Response
 ) {
   createFileDto=files;
+  console.log(createCoinDto);
   this.coinsService.create(createCoinDto,createFileDto)
   //const httpstatus = res.status(HttpStatus.CREATED).send();
   const test = res.statusCode;

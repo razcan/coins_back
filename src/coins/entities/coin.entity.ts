@@ -40,9 +40,9 @@ export class Coin {
     @Column()
     Photo2: string;	 
     @Column()
-    StartDate: Date;	 
+    StartDate: Date ;	 
     @Column()
-    EndDate: Date;	 
+    EndDate: Date ;	 
 
  
     
