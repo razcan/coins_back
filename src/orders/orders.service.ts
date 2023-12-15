@@ -76,6 +76,28 @@ export class OrdersService {
       .then(() => console.log('Email sent successfully.'))
       .catch(error => console.error('Error sending email:', error));
     }
+
+    async sendContactMail(header: any): Promise<void> {
+      const mailerService = new MailerService();
+      
+      const to = 'razvan.mustata@gmail.com';
+      const bcc = 'razvan.mustata@nirogroup.ro'
+      const subject = 'A new request has been added!';
+      const text = "";
+      const html = `
+      <br>
+          Ati primit o inregistrare de contact la data ${header.ContactDate} de catre clientul ${header.Customer} cu numarul de telefon ${header.Phone}
+          si adresa de email ${header.Email}.
+          Mesajul este ${header.Message}.
+      <br>
+      `
+      const attachments = [
+      ]
+      
+      mailerService.sendMail(to,bcc, subject, text, html,attachments)
+        .then(() => console.log('Email sent successfully.'))
+        .catch(error => console.error('Error sending email:', error));
+      }
     
 
   async create(header : any, details: any) {

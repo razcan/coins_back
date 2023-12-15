@@ -24,6 +24,15 @@ export class OrdersController {
    
   }
 
+  @Post('contact')
+  sendContactMail(@Body() contact: any) {
+   this.ordersService.sendContactMail(contact.header);
+   return contact.header
+    // this.sendMail(header);
+   
+   
+  }
+
   @Get()
   findAll() {
     return this.ordersService.findAll();
@@ -31,7 +40,6 @@ export class OrdersController {
 
   @Get('client/:id')
   clientOrder(@Param('id') id: string) {
-    // console.log('paici')
     return this.ordersService.clientOrder(id);
   }
 
