@@ -84,6 +84,22 @@ export class CoinsService {
     // );
   }
 
+  async findAllByCreatedDate(nr:number) {
+
+    const startDate = new Date;
+    startDate.setDate(startDate.getDate() - nr);
+
+    const actualDate = new Date;
+
+
+    const results = await this.coinRepository
+      .createQueryBuilder('coin')
+      .where(`coin.CreatedAt BETWEEN '${startDate.toISOString()}' AND '${actualDate.toISOString()}'`)
+      .getMany();
+    return results
+
+  }
+
 
   async findCountries() {
    // select Continent , Country , Code, count(*)Nr from coin group by Continent , Country , Code

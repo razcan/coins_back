@@ -27,12 +27,13 @@ export class AuthService {
         interface MyJsonData {
           access_token: string;
           expire_date_token: Date;
+          username: string;
         }
 
            return {
              access_token: await this.jwtService.signAsync(payload),
              expire_date_token: futureDate,
-    
+             username: username
           };
   }
 

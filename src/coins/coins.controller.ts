@@ -85,6 +85,12 @@ uploadFiles(@UploadedFiles() files, @Body() createCoinDto: any,
     return this.coinsService.findAll();
   }
 
+  @Get('byCreated/:nr')
+  findAllByCreatedDate(@Param('nr') nr: number) {
+    // console.log('nr:',nr)
+    return this.coinsService.findAllByCreatedDate(nr);
+  }
+
   @Get('countries')
   findCountries() {
     return this.coinsService.findCountries();
