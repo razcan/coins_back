@@ -3,7 +3,8 @@ import { SqliteConnectionOptions } from "typeorm/driver/sqlite/SqliteConnectionO
 
 import { Coin } from './src/coins/entities/coin.entity'
 import { FileInfo } from "src/coins/entities/fileinfo.entitty";
-import { Order } from './src//orders/entities/order.entity'
+import { Order } from './src/orders/entities/order.entity'
+import { Stock } from './src/stocks/entities/stock.entity'
 import { OrderDetails } from './src/orders/entities/orderdetail.entity'
 import {UserEnt} from './src/users/entities/user.entity'
 
@@ -14,7 +15,7 @@ const config: SqliteConnectionOptions = {
     // "entities": [
     //    './src/**/**/*.entity.{js,ts}'
     // ],
-     entities: [ Coin, FileInfo, Order ,OrderDetails, UserEnt],
+     entities: [ Coin, FileInfo, Order ,OrderDetails, UserEnt, Stock],
     // entities: [__dirname + '/../**/*.entity.{js,ts}'],
     // entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     // entities: [__dirname + '/../**/*.entity.*'],

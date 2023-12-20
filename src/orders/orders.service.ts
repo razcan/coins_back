@@ -143,8 +143,6 @@ export class OrdersService {
   }
 
  async clientOrder(id: string) {
-  console.log(id)
-
   const manager = this.orderRepository
   const custom_query = 
   `SELECT o.id,o.OrderDate ,o.Customer ,o.TotalAmount ,o.OrderStatus ,o.ShippingAddress 

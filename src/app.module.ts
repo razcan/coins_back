@@ -6,6 +6,7 @@ import { CoinsModule } from './coins/coins.module';
 import { OrdersModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { StocksModule } from './stocks/stocks.module';
 import config from '../ormconfig'
 
 @Module({
@@ -13,7 +14,7 @@ import config from '../ormconfig'
     TypeOrmModule.forRoot(
     config,
     
-    ), CoinsModule, OrdersModule, AuthModule, UsersModule],
+    ), CoinsModule, OrdersModule, AuthModule, UsersModule, StocksModule],
   controllers: [AppController],
   providers: [AppService],
 })
