@@ -8,4 +8,6 @@ export class CreateStockDto {
 
     CoinId: number;
 
+    Remarks: string;
+
 }

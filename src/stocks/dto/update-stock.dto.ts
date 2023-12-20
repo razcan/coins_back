@@ -10,4 +10,6 @@ export class UpdateStockDto extends PartialType(CreateStockDto) {
     Qtty: number;
 
     CoinId: number;
+
+    Remarks: string;
 }

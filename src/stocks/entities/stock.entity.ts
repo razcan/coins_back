@@ -18,5 +18,7 @@ export class Stock {
     Qtty: number;
     @Column()
     CoinId: number;
+    @Column()
+    Remarks: string;
     
 }
