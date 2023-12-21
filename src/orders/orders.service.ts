@@ -121,7 +121,7 @@ export class OrdersService {
         {
           TransactionDate: new Date,
           Type: 'Decrease',
-          Qtty: details[i].Quantity,
+          Qtty: -1*details[i].Quantity,
           CoinId: details[i].CoinId,
           Remarks: `OrderId: ${details[i].orderId} `
         });
