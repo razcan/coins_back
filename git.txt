@@ -10,3 +10,13 @@ git push -u origin main
 npx typeorm migration:create ./Migrations 
 
 typeorm migration:run -- -d path-to-datasource-config
+
+CREATE TRIGGER actual_stock AFTER INSERT 
+ON stock
+BEGIN
+   UPDATE coin SET Stock = (select sum(Qtty) from stock WHERE CoinId = new.CoinId) WHERE id = new.CoinId;
+END;
+
+INSERT INTO user_ent
+(userId, createdat, username, password, "role", name, avatar)
+VALUES(0, datetime('now'), 'razvan', 'a', 'admin', 'razvan', 'na');

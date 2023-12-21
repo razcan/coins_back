@@ -12,6 +12,8 @@ import { DataSource } from "typeorm"
 import "reflect-metadata"
 import {v4 as uuidv4} from 'uuid';
 import { MailerService } from '../../mailer.service'
+import { StocksService } from 'src/stocks/stocks.service';
+import { Stock } from 'src/stocks/entities/stock.entity';
 
 
 const AppDataSource = new DataSource({
@@ -33,9 +35,14 @@ export class OrdersService {
   constructor(
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
+
     @InjectRepository(OrderDetails)
     private readonly orderdetailsRepository: Repository<OrderDetails>,
-    private dataSource: DataSource
+
+    @InjectRepository(Stock)
+    private readonly stockRepository: Repository<Stock>,
+   
+    private dataSource: DataSource,
   ) {}
 
   async sendMail(header: any, url:any): Promise<void> {
@@ -109,6 +116,18 @@ export class OrdersService {
     for (let i=0 ; i<order_details; i++)
     {
       details[i].orderId=order_rezult.id;
+
+      await this.stockRepository.save(
+        {
+          TransactionDate: new Date,
+          Type: 'Decrease',
+          Qtty: details[i].Quantity,
+          CoinId: details[i].CoinId,
+          Remarks: `OrderId: ${details[i].orderId} `
+        });
+
+      
+      
     }
      await this.orderdetailsRepository.save(details);
    

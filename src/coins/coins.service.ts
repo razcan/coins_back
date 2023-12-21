@@ -10,6 +10,9 @@ import * as fs from 'fs';
 import { StreamableFile, Res } from '@nestjs/common';
 import { createReadStream } from 'fs';
 import { join } from 'path';
+import { StocksService } from 'src/stocks/stocks.service';
+import { Stock } from 'src/stocks/entities/stock.entity';
+
 
 
 @Injectable()
@@ -19,6 +22,8 @@ export class CoinsService {
     private readonly coinRepository: Repository<Coin>,
     @InjectRepository(FileInfo)
     private readonly fileRepository: Repository<FileInfo>,
+    @InjectRepository(Stock)
+    private readonly stockRepository: Repository<Stock>,
   ) {}
 
 
@@ -66,6 +71,15 @@ export class CoinsService {
     {
       file_related[i].coinId=coin_rezult.id;
     }
+
+   this.stockRepository.save(  
+      {TransactionDate: new Date,
+      Type: 'Initial Stock',
+      Qtty: coin_rezult.Stock,
+      CoinId: coin_rezult.id,
+      Remarks: 'Initial Stock'}
+      )
+    
     // await this.coinRepository.save(createCoinDto)
     await this.fileRepository.save(file_related) ;
     // return rezult;

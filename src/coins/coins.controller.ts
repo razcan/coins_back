@@ -18,6 +18,7 @@ import { FileInfo } from './entities/fileinfo.entitty';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AuthGuard } from '../auth/auth.guard'
+import { StocksService } from 'src/stocks/stocks.service';
 
 
 @Controller('coins')
@@ -25,6 +26,7 @@ export class CoinsController {
   constructor
   (
     private readonly coinsService: CoinsService,
+
     @InjectRepository(FileInfo)
     private readonly userRepository: Repository<FileInfo>,
     ) {}
@@ -62,6 +64,7 @@ uploadFiles(@UploadedFiles() files, @Body() createCoinDto: any,
   createFileDto=files;
   console.log(createCoinDto);
   this.coinsService.create(createCoinDto,createFileDto)
+
   //const httpstatus = res.status(HttpStatus.CREATED).send();
   const test = res.statusCode;
   if (test==201){
