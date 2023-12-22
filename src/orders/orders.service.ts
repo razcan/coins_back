@@ -57,16 +57,20 @@ export class OrdersService {
     const text = "";
     const html = `<h1>
     <br>
-    Draga ${header.Customer.toUpperCase()},
+    Draga <span style="color: rgb(41, 105, 176);">${header.Customer.toUpperCase()} </span>,
     <br>
-    Am inregistrat comanda ta din data de: ${dateAsString} in valoare de ${header.TotalAmount} RON.
+    Am inregistrat comanda ta din data de: 
+        <span style="color: rgb(41, 105, 176);">${dateAsString} </span>
+        in valoare de 
+        <span style="color: rgb(41, 105, 176);">${header.TotalAmount} RON.</span>
     <br>
-    Adresa la care se va transmite aceasta comanda este: ${header.ShippingAddress}
+    Adresa la care se va transmite aceasta comanda este:  <span style="color: rgb(41, 105, 176);">${header.ShippingAddress}.</span>
     <br>
     Daca doriti sa vizualizati comanda, dati click pe linkul de mai jos:
-   <br>
     </h1>
-    <a href="${url}">Go to Order</a>
+    <a href="${url}" style="text-align: start;color: rgb(17, 85, 204);background-color: rgb(255, 255, 255);font-size: small;""
+    
+    ><span style="font-size: 24px;"> Go to Order </span></a>
     `
     const attachments = [
     //   {   // binary buffer as an attachment
