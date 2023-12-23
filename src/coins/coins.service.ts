@@ -124,7 +124,7 @@ export class CoinsService {
    // Define your custom SQL query
   //  const customQuery = 'SELECT * FROM user WHERE email LIKE :email';
    const customQuery = 
-   'select Continent , Country , Code, count(*)Nr from coin group by Continent , Country , Code';
+   'select Continent , Country , Code, count(*)Nr from coin where Stock>0 group by Continent , Country , Code';
 
     // Execute the query with parameters
     // const results = await this.coinRepository.query(customQuery, { email: 'example@example.com' });
@@ -138,6 +138,7 @@ export class CoinsService {
     const results = await this.coinRepository
       .createQueryBuilder('coin')
       .where('coin.Country = :Country', { Country: country })
+      // .andWhere('coin.Stock > Stock', {Stock: 0})
       .getMany();
    return results;    
   }
