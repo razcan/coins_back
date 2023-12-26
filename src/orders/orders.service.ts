@@ -16,6 +16,7 @@ import { StocksService } from 'src/stocks/stocks.service';
 import { Stock } from 'src/stocks/entities/stock.entity';
 
 
+
 const AppDataSource = new DataSource({
   type: "sqlite",
   name: "teste",
