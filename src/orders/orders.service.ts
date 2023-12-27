@@ -14,10 +14,9 @@ import {v4 as uuidv4} from 'uuid';
 import { MailerService } from '../../mailer.service'
 import { StocksService } from 'src/stocks/stocks.service';
 import { Stock } from 'src/stocks/entities/stock.entity';
-import configIP from '../../src/config.json';
+// import configIP from '../../src/config.json';
 
-const IP: string =configIP.IP 
-//"165.227.234.84"
+const IP: string = "165.227.234.84"
 
 const AppDataSource = new DataSource({
   type: "sqlite",
