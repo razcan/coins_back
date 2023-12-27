@@ -14,8 +14,10 @@ import {v4 as uuidv4} from 'uuid';
 import { MailerService } from '../../mailer.service'
 import { StocksService } from 'src/stocks/stocks.service';
 import { Stock } from 'src/stocks/entities/stock.entity';
+import configIP from '../../src/config.json';
 
-
+const IP: string =configIP.IP 
+//"165.227.234.84"
 
 const AppDataSource = new DataSource({
   type: "sqlite",
@@ -136,7 +138,7 @@ export class OrdersService {
     }
      await this.orderdetailsRepository.save(details);
    
-     const url = `http://localhost:3001/customer/uuid?uuid=${header.uuid}`
+     const url = `http://${IP}:3001/customer/uuid?uuid=${header.uuid}`
 
      this.sendMail(header,url)
     
